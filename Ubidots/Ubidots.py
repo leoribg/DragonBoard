@@ -22,8 +22,8 @@ def process_data(raw):
 		print 'raw: '
 		print raw[0]
 		try:
-			api = ApiClient(token='keG4swC1Vvgy6ewN7xyqCUcc2KfpFj') # Replace with your Ubidots Token here
-			api.save_collection([{'variable': '57a49ea0762542095a756860','value':raw[0]}])
+			api = ApiClient(token='TOKEN') # Replace with your Ubidots Token here
+			api.save_collection([{'variable': 'VARIABLE_ID','value':raw[0]}])
 			print 'sent to ubidots'
 		except:
 			print 'problem in ubidots'
