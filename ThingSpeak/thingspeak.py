@@ -21,7 +21,7 @@ def process_data(raw):
 		print 'raw: '
 		print raw[0]
 		try:
-			url = 'https://api.thingspeak.com/update?api_key=WGAESYN974EPF93V&field1=%s' % (raw[0])
+			url = 'https://api.thingspeak.com/update?api_key=APIKEY&field1=%s' % (raw[0])
     			r=requests.get(url)
 			print 'sent to thingspeak'
 		except:
