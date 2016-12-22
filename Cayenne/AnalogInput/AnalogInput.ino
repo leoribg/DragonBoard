@@ -61,6 +61,5 @@ void loop() {
 void sendtoUart()
 {
   // print out the value you read:
-  Serial.print("Value:");
   Serial.println(sensorValue);
 }
