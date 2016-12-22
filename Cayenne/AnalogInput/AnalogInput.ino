@@ -4,6 +4,7 @@
  turning on and off a light emitting diode(LED)  connected to digital pin 13.
  The amount of time the LED will be on and off depends on
  the value obtained by analogRead().
+
  The circuit:
  * Potentiometer attached to analog input 0
  * center pin of the potentiometer to the analog pin
@@ -11,20 +12,30 @@
  * the other side pin to +5V
  * LED anode (long leg) attached to digital output 13
  * LED cathode (short leg) attached to ground
+
  * Note: because most Arduinos have a built-in LED attached
  to pin 13 on the board, the LED is optional.
+
+
  Created by David Cuartielles
  modified 30 Aug 2011
  By Tom Igoe
+
  This example code is in the public domain.
+
  http://www.arduino.cc/en/Tutorial/AnalogInput
+
  */
+#include <TimedAction.h>
+
 
 int sensorPin = A0;    // select the input pin for the potentiometer
 int tempPin = A1;    // select the input pin for the potentiometer
 int ledPin = 7;      // select the pin for the LED
 int sensorValue = 0;  // variable to store the value coming from the sensor
-int tempValue = 0;  // variable to store the value coming from the sensor
+void sendtoUart();
+
+TimedAction numberThread = TimedAction(100, sendtoUart);
 
 void setup() {
   // declare the ledPin as an OUTPUT:
@@ -33,17 +44,23 @@ void setup() {
 }
 
 void loop() {
-  // read the value from the sensor:
-  sensorValue = analogRead(sensorPin);
-  Serial.println(sensorValue);
-  tempValue = analogRead(tempPin);
-  Serial.println(tempValue);
+  // read the input on analog pin 0:
+  sensorValue = analogRead(A0);
   // turn the ledPin on
   digitalWrite(ledPin, HIGH);
   // stop the program for <sensorValue> milliseconds:
+  numberThread.check();
   delay(sensorValue);
   // turn the ledPin off:
   digitalWrite(ledPin, LOW);
   // stop the program for for <sensorValue> milliseconds:
   delay(sensorValue);
+  numberThread.check();
+}
+
+void sendtoUart()
+{
+  // print out the value you read:
+  Serial.print("Value:");
+  Serial.println(sensorValue);
 }
